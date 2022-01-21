@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sk.upjs.strazenie.storage.DaoFactory;
+import sk.upjs.strazenie.storage.EntityNotFoundException;
 import sk.upjs.strazenie.storage.Osoba;
 import sk.upjs.strazenie.storage.OsobaDao;
 
@@ -41,7 +42,12 @@ public class OsobaDaoController {
 	
 	@GetMapping("{name}")
 	public Osoba getByMeno(@PathVariable("name") String userName) {
-		return osobaDao.getByMeno(userName);
+		try {
+			return osobaDao.getByMeno(userName);
+		} catch (EntityNotFoundException e) {
+			
+		}
+		return null;
 	}
 	
 	@DeleteMapping("{id}")
