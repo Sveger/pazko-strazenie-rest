@@ -50,7 +50,17 @@ public class OsobaDaoController {
 		return null;
 	}
 	
-	@DeleteMapping("{id}")
+	@GetMapping("/id/{id}")
+	public Osoba getById(@PathVariable("id") Long id) {
+		try {
+			return osobaDao.getById(id);
+		} catch (EntityNotFoundException e) {
+			
+		}
+		return null;
+	}
+	
+	@DeleteMapping("/del/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") long id) {
 		Osoba deleted = osobaDao.delete(id);
 		if (deleted != null)
